@@ -1,0 +1,17 @@
+server:
+  port: 5000
+
+localeTag: ru-RU
+
+bot:
+  name: ${BOT_NAME}
+  token: ${BOT_TOKEN}
+  webHookPath: https://fba9-93-124-104-21.ngrok.io
+
+#feign:
+#  client:
+#    config:
+#      default:
+#        connectTimeout: 5000
+#        readTimeout: 5000
+#        loggerLevel: basic
