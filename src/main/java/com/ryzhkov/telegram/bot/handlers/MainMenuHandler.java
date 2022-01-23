@@ -34,8 +34,8 @@ public class MainMenuHandler implements InputMessageHandler {
         User user = new User(UUID.randomUUID(), message.getFrom().getFirstName(), message.getFrom().getUserName(), chatId);
         userService.save(user);
 
-        userDataCache.setBotState(userId, BotState.SHOW_MAIN_MENU);
-        return mainMenuService.getMainMenuMessage(userId, "Воспользуйтесь главным меню");
+//        userDataCache.setBotState(userId, BotState.SHOW_MAIN_MENU);
+        return mainMenuService.getMainMenuMessage(chatId, "Воспользуйтесь главным меню");
     }
 
     @Override

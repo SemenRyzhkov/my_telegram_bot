@@ -36,7 +36,10 @@ public class TelegramFacade {
             return processCallbackQuery(callbackQuery);
         } else {
             Message message = update.getMessage();
-            if (message.hasText()) {
+            if (message == null){
+                System.out.println("message is null");
+            }
+            else if (message.hasText()) {
                 log.info("New message from User:{}, chatId: {},  with text: {}",
                         message.getFrom().getFirstName(), message.getChatId(), message.getText());
                 replyMessage = handleInputMessage(message);
@@ -55,6 +58,7 @@ public class TelegramFacade {
     }
 
     private SendMessage handleInputMessage(Message message) {
+
         String inputMessage = message.getText().toLowerCase();
         long userId = message.getFrom().getId();
         BotState botState;
