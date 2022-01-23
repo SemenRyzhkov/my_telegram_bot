@@ -1,13 +1,20 @@
 package com.ryzhkov.telegram.model;
 
-import lombok.Data;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection = "users")
 public class User {
-    private String name;
-    private String age;
-    private String town;
-    private List<Quotes> quotes;
+    @Id
+    private UUID uuid;
+    private String firstName;
+    private String userName;
+    private long chatId;
 }

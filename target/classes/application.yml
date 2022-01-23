@@ -8,6 +8,11 @@ bot:
   token: ${BOT_TOKEN}
   webHookPath: https://fba9-93-124-104-21.ngrok.io
 
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://sryzhkov:sryzhkov@cluster0.doeoa.mongodb.net/quotes_db?retryWrites=true&w=majority
+
 #feign:
 #  client:
 #    config:

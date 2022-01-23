@@ -4,19 +4,23 @@ import com.ryzhkov.telegram.bot.BotState;
 import com.ryzhkov.telegram.cache.UserDataCache;
 import com.ryzhkov.telegram.client.QuotesClient;
 import com.ryzhkov.telegram.model.Quotes;
+import com.ryzhkov.telegram.service.ReplyMessageService;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class AskQuotesHandler implements InputMessageHandler {
 
-    private final UserDataCache userDataCache;
-    private final QuotesClient quotesClient;
+    private final ReplyMessageService messageService;
 
-    public AskQuotesHandler(UserDataCache userDataCache, QuotesClient quotesClient) {
-        this.userDataCache = userDataCache;
-        this.quotesClient = quotesClient;
+    public AskQuotesHandler(ReplyMessageService messageService) {
+        this.messageService = messageService;
     }
 
     @Override
@@ -30,12 +34,35 @@ public class AskQuotesHandler implements InputMessageHandler {
     }
 
     private SendMessage processUsersInput(Message message) {
-        long userId = message.getFrom().getId();
         long chatId = message.getChatId();
+        SendMessage replyToUser = messageService.getReplyMessage(chatId, "reply.askQuotes");
+        replyToUser.setReplyMarkup(getInlineMessageButtons());
+        return replyToUser;
 
-        userDataCache.setBotState(userId, BotState.ASK_QUOTES);
-        Quotes quotes = quotesClient.getRandomQuote("ru");
-        return new SendMessage(String.valueOf(chatId), quotes.getContent() + "\n\n" + quotes.getOriginator().getName());
+    }
+
+    private InlineKeyboardMarkup getInlineMessageButtons() {
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+
+        InlineKeyboardButton buttonYes = new InlineKeyboardButton();
+        buttonYes.setText("Да");
+        InlineKeyboardButton buttonNo = new InlineKeyboardButton();
+        buttonNo.setText("Нет");
+
+        //Every button must have callBackData, or else not work !
+        buttonYes.setCallbackData("buttonYes");
+        buttonNo.setCallbackData("buttonNo");
+
+        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
+        keyboardButtonsRow1.add(buttonYes);
+        keyboardButtonsRow1.add(buttonNo);
+
+        List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
+        rowList.add(keyboardButtonsRow1);
+
+        inlineKeyboardMarkup.setKeyboard(rowList);
+
+        return inlineKeyboardMarkup;
     }
 
 
