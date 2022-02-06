@@ -1,21 +1,27 @@
 package com.ryzhkov.telegram.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table
+@Entity
+@ToString
 public class Quotes {
-    private Integer id;
+    @Id
+    private Long id;
     private String language_code;
-    private String url;
     private String content;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "originator_id", referencedColumnName = "id")
     private Originator originator;
-    private List<String> tags;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }

@@ -14,16 +14,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User getByChatId(long chatId) {
-        log.info("getByChatId {}", chatId);
-        return userRepository.findByChatId(chatId);
+    public User getByChatId(long id) {
+        log.info("getByChatId {}", id);
+        return userRepository.getById(id);
     }
 
     public User save(User user) {
         log.info("save user {}", user);
-        User savedUser = userRepository.findByChatId(user.getChatId());
-        return savedUser == null
-                ? userRepository.save(user)
-                : savedUser;
+        return userRepository.findById(user.getId()).orElseGet(() -> userRepository.save(user));
     }
 }

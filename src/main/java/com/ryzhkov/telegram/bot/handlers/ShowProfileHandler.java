@@ -1,7 +1,7 @@
 package com.ryzhkov.telegram.bot.handlers;
 
 import com.ryzhkov.telegram.bot.BotState;
-import com.ryzhkov.telegram.cache.UserDataCache;
+import com.ryzhkov.telegram.cache.DataCache;
 import com.ryzhkov.telegram.model.User;
 import com.ryzhkov.telegram.service.UserService;
 import org.springframework.stereotype.Component;
@@ -10,10 +10,10 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 
 @Component
 public class ShowProfileHandler implements InputMessageHandler {
-    private UserDataCache userDataCache;
+    private DataCache userDataCache;
     private UserService userService;
 
-    public ShowProfileHandler(UserDataCache userDataCache,
+    public ShowProfileHandler(DataCache userDataCache,
                               UserService userService
     ) {
         this.userDataCache = userDataCache;

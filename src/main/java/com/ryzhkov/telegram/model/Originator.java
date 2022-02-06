@@ -1,16 +1,18 @@
 package com.ryzhkov.telegram.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import javax.persistence.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "originators")
+@Entity
+@ToString
 public class Originator {
-    private Integer id;
-    private String url;
+    @Id
+    private Long id;
     private String name;
 }

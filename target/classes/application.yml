@@ -9,6 +9,11 @@ bot:
   webHookPath: https://fba9-93-124-104-21.ngrok.io
 
 spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5436/quotes_db
+    username: postgres
+    password: postgres
   data:
     mongodb:
       uri: mongodb+srv://sryzhkov:sryzhkov@cluster0.doeoa.mongodb.net/quotes_db?retryWrites=true&w=majority

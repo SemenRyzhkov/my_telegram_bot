@@ -1,20 +1,27 @@
 package com.ryzhkov.telegram.model;
 
-import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.util.UUID;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "users")
+@Table(name = "users")
+@Entity
 public class User {
     @Id
-    private UUID uuid;
+    @Column(name = "id")
+    private Long id;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "user_name")
     private String userName;
-    private long chatId;
 }

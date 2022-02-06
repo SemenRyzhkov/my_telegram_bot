@@ -1,9 +1,6 @@
 package com.ryzhkov.telegram.bot.handlers;
 
 import com.ryzhkov.telegram.bot.BotState;
-import com.ryzhkov.telegram.cache.UserDataCache;
-import com.ryzhkov.telegram.client.QuotesClient;
-import com.ryzhkov.telegram.model.Quotes;
 import com.ryzhkov.telegram.service.ReplyMessageService;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;

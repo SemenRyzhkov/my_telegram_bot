@@ -2,7 +2,9 @@ package com.ryzhkov.telegram.service;
 
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MainMenuService {
+public class MenuService {
 
     public SendMessage getMainMenuMessage(final long chatId, final String textMessage) {
         final ReplyKeyboardMarkup replyKeyboardMarkup = getMainMenuKeyboard();
@@ -50,5 +52,24 @@ public class MainMenuService {
             sendMessage.setReplyMarkup(replyKeyboardMarkup);
         }
         return sendMessage;
+    }
+
+    public InlineKeyboardMarkup getInlineMessageButtons() {
+        InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
+
+        InlineKeyboardButton buttonSave = new InlineKeyboardButton();
+        buttonSave.setText("Сохранить");
+        buttonSave.setCallbackData("buttonSave");
+
+
+        List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
+        keyboardButtonsRow1.add(buttonSave);
+
+        List<List<InlineKeyboardButton>> rowList = new ArrayList<>();
+        rowList.add(keyboardButtonsRow1);
+
+        inlineKeyboardMarkup.setKeyboard(rowList);
+
+        return inlineKeyboardMarkup;
     }
 }
